@@ -1,0 +1,30 @@
+.invoice-container {
+    padding: 20px;
+  }
+  
+  .invoice-content {
+    padding: 30px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  @media print {
+    .print-hidden {
+      display: none !important;
+    }
+  
+    .invoice-container {
+      padding: 0;
+    }
+  }
+  

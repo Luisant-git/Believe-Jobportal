@@ -1,0 +1,11 @@
+.accordion-collapse {
+    overflow: hidden;
+  }
+  
+
+
+
+  /* Target the accordion button arrow and set it to white */
+.accordion-button::after {
+  filter: brightness(0) invert(1); /* Makes the icon white */
+}

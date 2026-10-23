@@ -1,0 +1,118 @@
+/* Custom Drawer Styles */
+.custom-drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .custom-drawer {
+    width: 400px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .custom-drawer-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .custom-drawer-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .custom-drawer-body {
+    padding: 24px;
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .custom-drawer-footer {
+    padding: 10px 16px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  
+  /* Form Input Styles */
+  .form-input {
+    position: relative;
+    margin-bottom: 16px;
+  }
+  
+  .form-input input,
+  .form-input select,
+  .form-input textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .form-input textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .form-input label {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: white;
+    padding: 0 5px;
+    font-size: 12px;
+    color: #888;
+  }
+  
+  /* Button Styles */
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+  }
+  
+  .button.-dark-1 {
+    background: #f0f0f0;
+    color: #ffffff;
+  }
+  
+  .button.-black-1 {
+    background: #1890ff;
+    color: white;
+  }
+  
+  .button.-black-1:hover {
+    background: #40a9ff;
+  }
+  
+  .button.-dark-1:hover {
+    background: #e0e0e0;
+  }

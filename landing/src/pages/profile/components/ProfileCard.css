@@ -1,0 +1,303 @@
+.profile-card-outer {
+  max-width: 1400px;
+  margin: 0px auto 20px auto;
+  padding: 0 8px;
+}
+
+.profile-card-main {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 24px;
+  align-items: flex-start;
+}
+
+.profile-photo {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+}
+
+.photo-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #ccc;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 160px;
+  height: 160px;
+  border: 8px solid #e6e6e6;
+  border-radius: 50%;
+}
+
+.progress-ring-filled {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 160px;
+  height: 160px;
+  border: 8px solid #28a745;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  /* Simulate progress using clip-path for responsiveness */
+  transform: rotate(calc(3.6deg * var(--percentage, 0%)));
+  transition: transform 0.4s;
+}
+
+.progress-percentage {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #28a745;
+  border: 1px solid #28a745;
+}
+
+.info-section {
+  min-width: 220px;
+  flex: 1 1 270px;
+  margin-left: 24px;
+}
+
+.info-item {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.right-box {
+  background: #FFF2E3;
+  padding: 20px;
+  border-radius: 12px;
+  width: 500px;
+  min-width: 210px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.right-box .item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+.right-box .item span {
+  color: green;
+  font-weight: bold;
+}
+
+.add-details-btn {
+  background-color: #f44336;
+  border: none;
+  padding: 16px;
+  width: 100%;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+.add-details-btn:hover {
+  background-color: #c62828;
+}
+
+.add-update-btn {
+  background-color: #28a745;
+  border: none;
+  padding: 16px;
+  width: 100%;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+
+.add-update-btn:hover {
+  background-color: #218838;
+}
+
+.add-home-btn {
+  background-color: #004080;
+  border: none;
+  padding: 16px;
+  width: 100%;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+.add-home-btn:hover {
+  background-color: #003366;
+}
+
+.profile-update-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.profile-card {
+  background-color: #ffffff;
+  border: 1px solid #f0f0f0;
+}
+
+.profile-card:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.bi-pencil {
+  font-size: 14px;
+}
+
+/* Responsive Styles */
+
+@media (max-width: 1200px) {
+  .profile-card-main {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .right-box {
+    width: 80%;
+    min-width: 170px;
+    margin-top: 24px;
+  }
+  .info-section {
+    margin-left: 0;
+    margin-top: 12px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-card-main {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+    gap: 14px;
+  }
+  .profile-photo {
+    margin: 0 auto 12px auto;
+    width: 110px;
+    height: 110px;
+  }
+  .photo-circle,
+  .progress-ring,
+  .progress-ring-filled {
+    width: 110px;
+    height: 110px;
+    min-width: 110px;
+    min-height: 110px;
+  }
+  .progress-ring,
+  .progress-ring-filled {
+    top: -8px;
+    left: -8px;
+    border-width: 6px;
+  }
+  .progress-percentage {
+    bottom: -26px;
+    font-size: 11px;
+    padding: 2px 7px;
+  }
+  .info-section {
+    margin-left: 0;
+    margin-top: 8px;
+    width: 100%;
+  }
+  .right-box {
+    width: 100%;
+    margin-top: 16px;
+    padding: 16px;
+  }
+  .right-box .item {
+    font-size: 13px;
+  }
+  .add-details-btn {
+    padding: 12px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-card-outer {
+    padding: 0 2px;
+  }
+  .profile-card-main {
+    padding: 8px;
+    gap: 10px;
+  }
+  .profile-photo {
+    width: 80px;
+    height: 80px;
+  }
+  .photo-circle,
+  .progress-ring,
+  .progress-ring-filled {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+  }
+  .progress-ring,
+  .progress-ring-filled {
+    top: -5px;
+    left: -5px;
+    border-width: 4px;
+  }
+  .progress-percentage {
+    bottom: -18px;
+    font-size: 9px;
+    padding: 1px 5px;
+  }
+  .info-section {
+    margin-top: 4px;
+    padding: 0;
+    min-width: 0;
+  }
+  .right-box {
+    padding: 9px;
+    width: 100%;
+    min-width: 0;
+  }
+  .right-box .item {
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+  .add-details-btn {
+    padding: 8px;
+    font-size: 12px;
+    margin-top: 6px;
+  }
+}

@@ -1,0 +1,491 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String         @id @default(uuid())
+  username       String?        @unique
+  email          String         @unique
+  passwordHash   String?
+  role           Role           @default(job_seeker)
+  firstName      String?
+  lastName       String?
+  phoneNumber    String?
+  profilePicture String?
+  isactive       Boolean?       @default(false)
+  status         UserStatus     @default(active)
+  isDeleted      Boolean?       @default(false)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  googleId       String?
+  authProvider   AuthProvider?
+  resetToken     String?
+  resetTokenExpiry DateTime?
+  admin          Admin?
+  employer       Employer?
+  jobSeeker      JobSeeker?
+  notifications  Notification[]
+  activityLogs   ActivityLog[]
+  jobs           Job[]          @relation("UserJobs")
+  jobCategories  JobCategory[]
+
+  @@map("users")
+}
+
+model Admin {
+  id          String   @id @default(uuid())
+  permissions String[]   @default([])
+  isDeleted   Boolean? @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String   @unique
+
+  @@map("admins")
+}
+
+model Employer {
+  id                          String   @id @default(uuid())
+  companyName                 String
+  contactPerson               String
+  legal_registration_document String?
+  companyLogo                 String?
+  companyWebsite              String?
+  companyDescription          String?
+  identityProof               String?
+  companyType                 String?
+  companySize                 String?
+  companyIndustry             String?
+  companyLocation             String?
+  companyCity                 String?
+  companyState                String?
+  companyPincode              String?
+  companyAddress              String?
+  companyPhone                String?
+  isactive                    Boolean? @default(false)
+  isTrust                     Boolean  @default(false)
+  companyEmail                String?
+  isDeleted                   Boolean? @default(false)
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+  job                         Job[]
+  user                        User     @relation(fields: [userId], references: [id])
+  userId                      String   @unique
+  full_name                   String?
+  designation                 String?
+  employee_id                 String?
+  authorization_letter        String?
+  business_card               String?
+  subscription                Subscription?
+
+  @@map("employers")
+}
+
+model JobSeeker {
+  id                 String        @id @default(uuid())
+  resume             String?
+  phoneNumber        String?
+  city               String?
+  skills             String[]
+  experience         String?
+  highestEducation   String?
+  isactive           Boolean?      @default(false)
+  education          String?
+  gender             String?
+  workStatus         String?
+  preferredLocations String[]      @default([])
+  location           String?
+  current_location   String?
+  preferredSalary    String?
+  isDeleted          Boolean?      @default(false)
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  user               User          @relation(fields: [userId], references: [id])
+  userId             String        @unique
+  applications       Application[]
+
+  @@map("job_seekers")
+}
+
+model Job {
+  id                String        @id @default(uuid())
+  userId            String?       @map("userId") 
+  user              User?         @relation(fields: [userId], references: [id], name: "UserJobs")
+  title             String
+  description       String
+  location          String
+  type              JobType
+  zipCode           String?
+  experience        String?
+  salaryRange       String?
+  remote            Boolean?
+  approved          Boolean?
+  numberOfPositions Int?
+  dateOpened        DateTime?
+  targetDate        DateTime?
+  industry          String?
+  viewCount         Int?          @default(0)
+  isFeatured        Boolean?      @default(false)
+  isUrgent          Boolean?      @default(false)
+  notes             String?
+  companyName       String
+  companyId         String?
+  Companypicture    String?
+  filledDate        String?
+  jobCode           String
+  qualifications    String[]      @default([])
+  skillsRequired    String[]
+  status            JobStatus     @default(open)
+  state             String?
+  city              String?
+  pincode           String?
+  area              String?
+  benefits          String[]      @default([])
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  createdBy         String?
+  updatedBy         String?
+  deletedBy         String?
+  isActive          Boolean       @default(false)
+  Delete_flg        Int           @default(0)   @map("Delete_flg")
+  applications      Application[]
+  tags              JobTag[]
+  categoryId        String?
+  category          JobCategory?  @relation(fields: [categoryId], references: [id])
+  companyDetails    Employer?     @relation(fields: [companyId], references: [id])
+
+  @@map("jobs")
+}
+
+model Subscription {
+  id              String     @id @default(uuid())
+  employer        Employer   @relation(fields: [employerId], references: [id])
+  employerId      String     @unique
+  planName        String     
+  price           Float
+  candidateLimit  Int        
+  jobLimit        Int        
+  startDate       DateTime  @default(now())   
+  endDate         DateTime
+  daysLeft        Int?
+  transactionId   String?
+  screenshot      String?   
+  isActive        Boolean    @default(false)
+  isDeleted       Boolean?   @default(false)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@map("subscriptions")
+}
+
+model companyDetails {
+  id                 String   @id @default(uuid())
+  companyName        String
+  companyLogo        String?
+  companyWebsite     String?
+  companyDescription String?
+  companyLocation    String?
+  companyCity        String?
+  companyState       String?
+  companyAddress     String?
+  companyPhone       String?
+  companyEmail       String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  createdBy          String?
+  updatedBy          String?
+  deletedBy          String?
+  Delete_flg         Int      @default(0)
+}
+
+model Application {
+  id                String          @id @default(uuid())
+  status            AppStatus       @default(pending)
+  applicationDate   DateTime        @default(now())
+  resumeUrl         String
+  coverLetter       String?
+  isDeleted         Boolean?        @default(false)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  jobSeeker         JobSeeker       @relation(fields: [jobSeekerId], references: [id])
+  jobSeekerId       String
+  userId            String?
+  job               Job             @relation(fields: [jobId], references: [id])
+  jobId             String
+  expectedSalary    String?
+  currentSalary     String?
+  linkedinProfile   String?
+  experienceYears   Int?
+  shortlistedDate   String?
+  rejectedDate      String?
+  selectedDate      String?
+  isInternal        Boolean?        @default(false)
+  rating            Int?            @default(0)
+  createdBy         String?
+  updatedBy         String?
+  deletedBy         String?
+  interviewFeedback String?
+  statusHistory     StatusHistory[]
+  interviews        Interview[]
+  tracking          Tracking[]
+
+  @@map("applications")
+}
+
+model StatusHistory {
+  id            String      @id @default(uuid())
+  application   Application @relation(fields: [applicationId], references: [id])
+  applicationId String
+  status        AppStatus
+  reason        String?
+  description   String?
+  changedBy     String?
+  isDeleted     Boolean?    @default(false)
+  changedAt     DateTime    @default(now())
+
+  @@map("application_status_history")
+}
+
+model Interview {
+  id               String            @id @default(uuid())
+  date             String
+  time             String
+  location         String
+  type             InterviewType
+  rating           InterviewRating
+  feedback         InterviewFeedback
+  interviewStatus  InterviewStatus
+  round            InterviewRound?
+  interviewNotes   String?
+  notes            String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  application      Application       @relation(fields: [applicationId], references: [id])
+  applicationId    String
+  interviewerName  String?
+  interviewerEmail String?
+  interviewMode    String?
+  meetingLink      String?
+  durationMinutes  Int?
+  rescheduledDate  String?
+  isCompleted      Boolean
+  isDeleted        Boolean?        @default(false)
+
+  @@map("interviews")
+}
+
+model Notification {
+  id         String           @id @default(uuid())
+  message    String
+  type       NotificationType
+  readStatus ReadStatus       @default(unread)
+  isDeleted  Boolean?         @default(false)
+  createdAt  DateTime         @default(now())
+  user       User             @relation(fields: [userId], references: [id])
+  userId     String
+
+  @@map("notifications")
+}
+
+model JobCategory {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?
+  updatedBy   String?
+  deletedBy   String?
+  Delete_flg  Int      @default(0)
+  jobs        Job[]
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+
+  @@map("job_categories")
+}
+
+model JobTag {
+  id        String  @id @default(uuid())
+  name      String
+  isDeleted Boolean? @default(false)
+  job       Job     @relation(fields: [jobId], references: [id])
+  jobId     String
+
+  @@map("job_tags")
+}
+
+model Tracking {
+  id            String      @id @default(uuid())
+  currentStage  StageType
+  date          DateTime    @default(now())
+  comments      String?
+  isDeleted     Boolean?    @default(false)
+  application   Application @relation(fields: [applicationId], references: [id])
+  applicationId String
+
+  @@map("application_tracking")
+}
+
+model ActivityLog {
+  id          String       @id @default(uuid())
+  type        ActivityType
+  description String?
+  isDeleted   Boolean?     @default(false)
+  timestamp   DateTime     @default(now())
+  user        User         @relation(fields: [userId], references: [id])
+  userId      String
+
+  @@map("user_activity_log")
+}
+
+model Poster {
+   id        String     @id @default(uuid())
+   name      String     
+   image     String
+   isActive  Boolean    @default(false)
+   isDeleted Boolean?   @default(false)
+   createdAt DateTime   @default(now())
+   updatedAt DateTime   @default(now())
+}
+
+model Banner {
+  id        String    @id @default(uuid())
+  name      String
+  image     String          
+  isActive  Boolean   @default(false)
+  isDeleted Boolean?  @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+}
+
+model Enquiry {
+  id        String   @id @default(uuid())
+  username  String
+  email     String
+  mobileno  String
+  queries   String?
+  isDeleted Boolean? @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("enquiries")
+}
+
+enum InterviewMode {
+  ONLINE
+  OFFLINE
+  PHONE
+  VIDEO
+}
+
+enum InterviewRound {
+  FIRST
+  SECOND
+  FINAL
+}
+
+enum InterviewFeedback {
+  POSITIVE
+  NEGATIVE
+  NEUTRAL
+}
+
+enum InterviewRating {
+  EXCELLENT
+  GOOD
+  AVERAGE
+  POOR
+}
+
+enum InterviewStatus {
+  SCHEDULED
+  COMPLETED
+  RESCHEDULED
+  CANCELLED
+  NO_SHOW
+}
+
+enum InterviewType {
+  TECHNICAL
+  HR
+  MANAGERIAL
+  FINAL
+}
+
+enum Role {
+  admin
+  super_admin
+  employer
+  job_seeker
+}
+
+enum UserStatus {
+  active
+  inactive
+}
+
+enum JobType {
+  full_time
+  part_time
+  contract
+  freelance
+  internship
+  temporary
+}
+
+enum JobStatus {
+  open
+  closed
+  pending
+  draft
+}
+
+enum AppStatus {
+  pending
+  accepted
+  rejected
+  withdrawn
+  shortlisted
+  interviewed
+  offered
+}
+
+enum NotificationType {
+  application_status
+  new_job
+  interview_scheduled
+  message
+  system
+}
+
+enum ReadStatus {
+  unread
+  read
+}
+
+enum StageType {
+  application
+  screening
+  interview
+  offer
+  hired
+  rejected
+}
+
+enum ActivityType {
+  login
+  logout
+  job_post
+  job_apply
+  profile_update
+  account_update
+}
+
+enum AuthProvider {
+  google
+}

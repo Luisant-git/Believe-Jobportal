@@ -1,0 +1,24 @@
+/* Container for the difficulty levels */
+.difficulty-level-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+  }
+  
+  /* Style for each difficulty level option */
+  .difficulty-level-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .difficulty-level-option input {
+    margin-right: 10px;
+  }
+  
+  /* Optional: Make checkbox borders subtle */
+  .difficulty-level-option input:checked {
+    border-color: #007bff;
+  }
+  

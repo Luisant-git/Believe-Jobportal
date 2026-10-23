@@ -1,0 +1,62 @@
+/* Mobile styles - 2 cards per row */
+@media (max-width: 767.98px) {
+    .hotel-properties-card {
+      padding: 12px !important;
+      margin-bottom: 16px !important;
+      background: #fff;
+      border-radius: 8px !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  
+    .hotel-properties-card .cardImage {
+      width: 100% !important;
+      margin-bottom: 12px;
+    }
+  
+    .hotel-properties-card .cardImage__content {
+      height: 180px !important;
+    }
+  
+    .hotel-properties-card h3 {
+      font-size: 16px !important;
+      margin-bottom: 8px !important;
+    }
+  
+    .hotel-properties-card .text-14 {
+      font-size: 12px !important;
+    }
+  
+    .hotel-properties-card .button {
+      padding: 8px 16px !important;
+      font-size: 12px !important;
+      margin-top: 16px !important;
+    }
+  
+    .hotel-properties-card .text-22 {
+      font-size: 18px !important;
+    }
+  }
+  
+  /* Tablet styles */
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .hotel-properties-card {
+      padding: 16px !important;
+    }
+  }
+  
+  /* Ensure cards maintain equal height in mobile view */
+  @media (max-width: 767.98px) {
+    .ant-col-sm-12 {
+      display: flex;
+    }
+    
+    .hotel-properties-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .border-top-light {
+      flex-grow: 1;
+    }
+  }
